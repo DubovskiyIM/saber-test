@@ -103,59 +103,63 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dashboard() {
   const classes = useStyles()
+
+  // useEffect with setState to fetch data from endpoint
+
   const [open, setOpen] = useState(true)
   const [currentTasks, setCurrentTasks] = useState([])
-
-  const projects = [
-    {
-      uid: 1,
-      img: 'https://saber3d.com/wp-content/uploads/2020/06/CrysisRemastered_icon.jpg',
-      title: 'Crysis'
-    },
-    {
-      uid: 2,
-      img: 'https://saber3d.com/wp-content/uploads/2019/12/Witcher3Switch_icon.jpg',
-      title: 'Witcher 3'
-    },
-    {
-      uid: 3,
-      img: 'https://saber3d.com/wp-content/uploads/2019/12/Vampyr_icon_.jpg',
-      title: 'Vampyr Switch'
-    },
-    {
-      uid: 4,
-      img: 'https://saber3d.com/wp-content/uploads/2016/07/GodMode_Screens_8-800x600.jpg',
-      title: 'God Mode'
-    }
-  ]
-  const tasks = [
-    {
-      uid: 1,
-      taskType: 'AddItem',
-      desc: 'Add item to the player',
-      properties: {
-        itemName: 'gold',
-        amount: 100
+  const [state, setState] = useState({
+    projects: [
+      {
+        uid: 1,
+        img: 'https://saber3d.com/wp-content/uploads/2020/06/CrysisRemastered_icon.jpg',
+        title: 'Crysis'
       },
-      state: 'inProgress'
-    },
-    {
-      uid: 2,
-      taskType: 'AddItem',
-      desc: 'Add item to the player',
-      properties: {
-        itemName: 'silver',
-        amount: 200
+      {
+        uid: 2,
+        img: 'https://saber3d.com/wp-content/uploads/2019/12/Witcher3Switch_icon.jpg',
+        title: 'Witcher 3'
       },
-      state: 'Done'
-    },
-    {
-      uid: 2,
-      taskType: 'RemoveItem',
-      desc: 'Remove player',
-      state: 'Failed'
-    }
-  ]
+      {
+        uid: 3,
+        img: 'https://saber3d.com/wp-content/uploads/2019/12/Vampyr_icon_.jpg',
+        title: 'Vampyr Switch'
+      },
+      {
+        uid: 4,
+        img: 'https://saber3d.com/wp-content/uploads/2016/07/GodMode_Screens_8-800x600.jpg',
+        title: 'God Mode'
+      }
+    ],
+    tasks: [
+      {
+        uid: 1,
+        taskType: 'AddItem',
+        desc: 'Add item to the player',
+        properties: {
+          itemName: 'gold',
+          amount: 100
+        },
+        state: 'inProgress'
+      },
+      {
+        uid: 2,
+        taskType: 'AddItem',
+        desc: 'Add item to the player',
+        properties: {
+          itemName: 'silver',
+          amount: 200
+        },
+        state: 'Done'
+      },
+      {
+        uid: 2,
+        taskType: 'RemoveItem',
+        desc: 'Remove player',
+        state: 'Failed'
+      }
+    ]
+  })
 
   const handleDrawerOpen = () => {
     setOpen(true)
@@ -166,9 +170,8 @@ export default function Dashboard() {
   const setCurrentProject = (uid) => {
     getTasks(uid)
   }
-
   const getTasks = (uid) => {
-    setCurrentTasks(tasks.filter(task => task.uid === uid))
+    setCurrentTasks(state.tasks.filter(task => task.uid === uid))
   }
 
 
@@ -186,7 +189,13 @@ export default function Dashboard() {
           >
             <MenuIcon />
           </IconButton>
-          <Typography component="h1" variant="h6" color="inherit" noWrap className={classes.title}>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            className={classes.title}
+          >
             Mass Tasks
           </Typography>
           <IconButton color="inherit">
@@ -217,7 +226,7 @@ export default function Dashboard() {
           <Grid container spacing={3}>
             <Grid container item xs={12} spacing={3}>
               <Projects
-                projects={projects}
+                projects={state.projects}
                 setCurrent={setCurrentProject}
               />
             </Grid>

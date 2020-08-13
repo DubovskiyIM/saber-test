@@ -28,7 +28,7 @@ const ProjectItem = ({ uid, title, img, setCurrent }) => {
     <Card
       className={classes.root}
       uid={uid}
-      onClick={() => {setCurrent(uid, title)}}
+      onClick={() => {setCurrent(uid)}}
     >
       <CardActionArea>
         <CardMedia

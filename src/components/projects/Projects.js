@@ -1,6 +1,6 @@
 import React from 'react'
 import ProjectItem from './ProjectItem'
-import {Grid} from '@material-ui/core';
+import { Grid } from '@material-ui/core'
 
 const Projects = ({ projects, setCurrent }) => {
   return (
